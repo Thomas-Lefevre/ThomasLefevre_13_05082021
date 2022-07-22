@@ -110,6 +110,128 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/profile/monthTransactions:
+    parameters:
+      - in: header
+        name: Authorization
+        description: Attach Bearer JWT token
+        required: true
+        type: string
+    get:
+      security:
+        - Bearer: []
+      tags:
+      - Transactions Module
+      summary: User's transactions of the month
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: user's transactions for the month retrieved successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+  /user/profile/transactionsMonth/{transactionId}:
+    parameters:
+      - name: transactionId
+        in: path
+        required: true
+        description: User's transaction ID
+        type: integer
+      - in: header
+        name: Authorization
+        description: Attach Bearer JWT token
+        required: true
+        type: string
+    get:   
+      tags:
+      - Transactions Module
+      summary: User's transaction details
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: user's transaction retrieved successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    put:   
+      tags:
+      - Transactions Module
+      summary: User's transaction Update
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: user's transaction retrieved successfully
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    post:   
+      tags:
+      - Transactions Module
+      summary: Create user's transaction
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: user's transaction retrieved successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
+    delete:   
+      tags:
+      - Transactions Module
+      summary: User's transaction Delete
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: user's transaction delete successfully
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal server error
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -163,4 +285,27 @@ definitions:
       firstName:
         type: string
       lastName:
+        type: string
+  Transaction:
+    type: object
+    properties:
+      transactionId:
+        type: integer
+        description: transaction Id
+      transactionDate:
+        type: string
+        description: transaction Date
+      transactionDescription: 
+        type: string
+        description: transaction Description
+      transactionAmount:
+        type: number
+        description: transaction Amount
+      transactionBalance: 
+        type: string
+        description: transaction Balance
+  TransactionUpdate:
+    type: object
+    properties: 
+      transactionBalance:
         type: string

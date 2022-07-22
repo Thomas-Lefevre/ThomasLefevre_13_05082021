@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import FormSignIn from './components/FormSignIn';
 import './designs/css/main.css';
-// import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 import Home from './pages/Home';
-import SignIn from './pages/SignIn'; 
+import SignIn from './pages/SignIn';
 import User from './pages/User';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import store from './utils/store';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <User />
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<SignIn />} />
+          <Route path='/profile' element={<User />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
